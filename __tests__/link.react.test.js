@@ -4,6 +4,8 @@
 'use strict';
 
 import React from 'react';
+import { shallow } from 'enzyme';
+import toJson from 'enzyme-to-json';
 import Link from '../Link.react';
 import renderer from 'react-test-renderer';
 
@@ -24,6 +26,13 @@ it('properly escapes quotes', () => {
     .create(<Link>{"\"Facebook\" \\'is \\ 'awesome'"}</Link>)
     .toJSON();
   expect(tree).toMatchSnapshot();
+});
+
+it('properly escapes quotes using enzyme', () => {
+  const wrapper = shallow(
+    <Link>{"\"Facebook\" \\'is \\ 'awesome'"}</Link>
+  );
+  expect(toJson(wrapper)).toMatchSnapshot();
 });
 
 it('changes the class when hovered', () => {
